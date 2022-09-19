@@ -1,4 +1,4 @@
-const multer = require("multer");
+import multer, { diskStorage } from "multer";
 const imageFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
@@ -6,7 +6,7 @@ const imageFilter = (req, file, cb) => {
     cb("Please upload only images.", false);
   }
 };
-var storage = multer.diskStorage({
+var storage = diskStorage({
   destination: (req, file, cb) => {
     cb(null, __basedir + "/images/");
   },
@@ -15,4 +15,4 @@ var storage = multer.diskStorage({
   },
 });
 var uploadFile = multer({ storage: storage, fileFilter: imageFilter });
-module.exports = uploadFile;
+export default uploadFile;
